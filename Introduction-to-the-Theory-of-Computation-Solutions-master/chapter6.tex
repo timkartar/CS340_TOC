@@ -1,0 +1,84 @@
+\section{Chapter 6}
+\begin{enumerate}
+%		6.6		%
+\item[6.6]Describe two different Turing machines, $M$ and $N$, where $M$ outputs \angles{N} and $N$ outputs \angles{M}, when started on any input.
+\\
+\textbf{Solution:} Construct $M$ as follows:
+\\
+$M$ = ``On input $w$:
+\begin{enumerate}
+\itemsep0em
+\item[1.]Obtain \angles{M} by the recursion theorem.
+\item[2.]Compute $q($\angles{M}$)$, and write the result to the tape.
+\item[3.]Halt."
+\end{enumerate}
+Now let $N = q($\angles{M}$)$. The computation in Step 2 writes \angles{q($\angles{M}$)} = \angles{N}. $N$ writes \angles{M} to the tape, so the construction of $M$ and $N$ is correct.
+
+%		6.9		%
+\item[6.9]Use the recursion theorem to give an alternative proof of Rice?s theorem in Problem 5.28.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		6.10		%
+\item[6.10]Give a model of the sentence $\phi_{eq} = \forall x [R_1(x, x)] \wedge \forall x, y [R_1(x, y) \leftrightarrow R_1(y, x)] \wedge \forall x, y, z [(R_1(x, y) \wedge R_1(y, z)) \to R_1(x, z)]$.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		6.12		%
+\item[6.12]Let $(\mathbb{N} , <)$ be the model with universe $\mathbb{N}$ and the ``less than" relation. Show that Th($\mathbb{N} , <$) is decidable.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		6.13		%
+\item[6.13]For each $m > 1$ let $\mathbb{Z}_m = \{0,1,2,\cdots,m-1\}$, and let $F_m = (\mathbb{Z}_m, +, \times)$ be the model whose universe is $\mathbb{Z}_m$ and that has relations corresponding to the $+$ and $\times$ relations computed modulo $m$. Show that for each $m$, the theory Th($F_m$) is decidable.
+\\
+\textbf{Solution:} we are given a formula $\phi = Q_1x_1\cdots Q_kx_k \psi(x_1, \cdots, x_n)$ (assuming the $Q_i$ are quantifiers, and $\psi$ has no quantifiers). We iteratively define $I_\ell$ for $0 \le \ell \le n$:
+\begin{itemize}
+\item $I_n(x_1, \cdots, x_n) = \psi(x_1, \cdots, x_n)$,
+\item $I_{\ell-1}(x_1, \cdots, x_{\ell-1}) = \bigvee_{i=0}^{m-1} I_{i}(x_1, \cdots, x_{\ell-1}, i)$ if $Q_\ell$ is $\exists$,
+\item $I_{\ell-1}(x_1, \cdots, x_{\ell-1}) = \bigwedge_{i=0}^{m-1} I_{i}(x_1, \cdots, x_{\ell-1}, i)$ if $Q_\ell$ is $\forall$.
+\end{itemize}
+We then output the value of $I_0$. By an induction argument, we correctly calculate the truth value of $\phi$. Therefore, Th($F_m$) is decidable. 
+
+
+%		6.23		%
+\item[6.23]Show that the function $K(x)$ is not a computable function.
+\\
+\textbf{Solution:} Suppose that $K(x)$ were computable. We now construct a TM $Z$:
+\\
+$Z$ = ``On any input:
+\begin{enumerate}
+\itemsep0em
+\item[1.]Obtain \angles{Z} by the recursion theorem.
+\item[2.]Compute $d = K($\angles{Z}$)$.
+\item[3.]Enumerate strings $x \in \Sigma^*$ in any order until $K(x) > d$.
+\item[4.]Output $x$."
+\end{enumerate}
+This a contradiction since we are outputting a value of $K(x)$ that is greater than the own Turing Machine's value. Therefore, $K(x)$ is not computable.
+
+%		6.24		%
+\item[6.24]Show that the set of incompressible strings is undecidable.
+\\
+\textbf{Solution:} Since the set of incompressible strings is an infinite set, this reduces to 6.25.
+
+%		6.25		%
+\item[6.25]Show that the set of incompressible strings contains no infinite subset that is Turing-recognizable.
+\\
+\textbf{Solution:} Suppose that such a subset were Turing-recognizable, and let $E$ be the enumerator, since Turing-enumerable languages are exactly the Turing-recognizable ones. We now construct a TM $Y$:
+\\
+$Y$ = ``On any input:
+\begin{enumerate}
+\itemsep0em
+\item[1.]Obtain \angles{Y} by the recursion theorem.
+\item[2.]Run $E$ until it outputs a string $x$ with $|x| > |$\angles{Y}$|$.
+\item[3.]Output $x$."
+\end{enumerate}
+This a contradiction - therefore, no infinite subset of the set of incompressible strings is Turing-recognizable.
+
+%		6.27		%
+\item[6.27]Let $S = \{$\angles{M} $|$ $M$ is a TM and $L(M) = \{$\angles{M}\}\}. Show that neither $S$ nor $\overline{S}$ is Turing-recognizable.
+\\
+\textbf{Solution:} We will show that $A_{TM} \le_m S$ and $A_{TM} \le_m \overline{S}$, implying that neither $S$ nor $\overline{S}$ is Turing-recognizable. For $A_{TM} \le_m S$, given \angles{M, w} $\in A_{TM}$, construct a TM $T$ that, on input $x$, rejects if $x \ne$ \angles{T} and simulates $M$ on $w$ otherwise. Therefore, $L(T) = \{$\angles{T}\} if $M$ accepts $w$, and $\emptyset$ otherwise.
+
+\par For $A_{TM} \le_m \overline{S}$, change $T$'s construction to be ``accepts" instead of ``rejects". 
+\end{enumerate}

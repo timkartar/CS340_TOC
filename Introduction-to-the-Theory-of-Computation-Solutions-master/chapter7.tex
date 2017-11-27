@@ -1,0 +1,124 @@
+\section{Chapter 7}
+\begin{enumerate}
+%		7.1		%
+\item[7.1]Answer each part TRUE or FALSE.
+\begin{enumerate}
+\item[c.]\textbf{Solution:} \alreadyanswered
+\item[d.]\textbf{Solution:} \alreadyanswered
+\end{enumerate}
+
+%		7.2		%
+\item[7.2]Answer each part TRUE or FALSE.
+\begin{enumerate}
+\item[c.]\textbf{Solution:} \alreadyanswered
+\item[d.]\textbf{Solution:} \alreadyanswered
+\end{enumerate}
+
+%		7.15		%
+\item[7.15]Show that P is closed under the star operation. (Hint: Use dynamic programming. On input $y = y_1\cdots y_n$ for $y_i \in \Sigma$, build a table indicating for each $i \le j$ whether the substring $y_i\cdots y_j \in A^*$ for any $A \in$ P.)
+\\
+\textbf{Solution:} Let $M$ be a TM that decides $A$ in polynomial time. We construct a TM $T$ to decide $A^*$ in polynomial time:
+\\ \\
+$T$ = ``On input $w \in \Sigma^*$:
+
+\newlist{myEnumerate}{enumerate}{6}
+
+\begin{myEnumerate}
+\item[1.]Let $|w| = n \in \mathbb{N}$.
+\item[2.]If $n = 0$, $accept$ $w$.
+\item[3.]Construct an $n \times n$ table $B$, initializing all elements to 0.
+\item[4.]For $1 \le i \le n$ do:
+\begin{myEnumerate}
+\item[a.]If $w_i \in A$, set $B(i, i) = 1$.
+\end{myEnumerate}
+\item[5.]For $2 \le j \le n$ do:
+\begin{myEnumerate}
+\item[a.]For $1 \le k \le n-j+1$ do:
+\begin{myEnumerate}
+\item[i.]Set $m \leftarrow j+k-1$.
+\item[ii.]If $w_k\cdots w_m \in A$, set $B(k,k) = 1$.
+\item[iii.]For $k \le p \le m-1$ do:
+\begin{myEnumerate}
+\item[1.]If $B(k, p) = B(p, m) = 1$, set $B(k, m) = 1$.
+\end{myEnumerate}
+\end{myEnumerate}
+\end{myEnumerate}
+\item[6.]Output if $B(1, n) = 1$."
+\end{myEnumerate}
+
+%		7.16		%
+\item[7.16]Show that NP is closed under the star operation.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		7.20		%
+\item[7.20]We generally believe that \emph{PATH} is not NP-complete. Explain the reason behind this belief. Show that proving \emph{PATH} is not NP-complete would prove P $\ne$ NP.
+\\
+\textbf{Solution:} We can prove the converse: if P = NP, then \emph{PATH} is NP-complete. We will do two things (in assuming P = NP): show that \emph{PATH} is NP-hard, and because \emph{PATH} $\in$ NP, \emph{PATH} is NP-complete. We will do this by showing $SAT \le_p PATH$.
+
+\par Since P = NP, there is a decider $S$ for $SAT$ that runs in time $O(n^k)$ for some $k \in \mathbb{N}$. We construct a TM $T$ that computes the reduction:
+\\ \\
+$T$ = ``On input \angles{\phi} where $\phi$ is a $SAT$ formula:
+\begin{enumerate}
+\item[1.]Run $S$ on input \angles{\phi}. If $S$ accepts \angles{\phi}, the construct a graph $G = (V, E)$ such that $s, t \in V, (s, t) \in E$.
+\item[2.]If $S$ rejects \angles{\phi}, construct a graph $G = (V, E)$ such that $V = \{s, t\}, E = \emptyset$.
+\item[3.]Output \angles{G, s, t}."
+\end{enumerate}
+Since this reduction takes polynomial time, then P = NP implies \emph{PATH} is NP-complete.
+
+%		7.22		%
+\item[7.22]Let $DOUBLE$-$SAT = \{$\angles{\phi} $|$ $\phi$ has at least two satisfying assignments\}. Show that $DOUBLE$-$SAT$ is NP-complete.
+\\
+\textbf{Solution:} We will reduce $3SAT$ to this problem. Given $\phi$ as a $3SAT$ formula, all we need to do is to introduce a new variable $x$, and create a new formula $\phi'$ as follows:
+\begin{center}
+$\phi' = \phi \wedge (x \vee \overline{x})$
+\end{center}
+We show that $\phi \in 3SAT$ if and only if $\phi' \in DOUBLE$-$SAT$. If $\phi \in 3SAT$, then there is one satisfying assignment - for $\phi'$ there are two since we can set $x = 0, 1$ and still have $\phi'$ be true. If $\phi$ is unsatisfiable, then clearly $\phi'$ is also unsatisfiable. Therefore, we are done.
+
+%		7.23		%
+\item[7.23]Let $HALF$-$CLIQUE$ = \{\angles{G} $|$ $G$ is an undirected graph having a complete subgraph with at least $\frac{m}{2}$ nodes, where $m$ is the number of nodes in $G$\}. Show that $HALF$-$CLIQUE$ is NP-complete.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		7.33		%
+\item[7.33]In the following solitaire game, you are given an $m \times m$ board. On each of its $m^2$ positions lies either a blue stone, a red stone, or nothing at all. You play by removing stones from the board until each column contains only stones of a single color and each row contains at least one stone. You win if you achieve this objective. Winning may or may not be possible, depending upon the initial configuration. Let $SOLITAIRE$ = \{\angles{G} $|$ $G$ is a winnable game configuration\}. Prove that $SOLITAIRE$ is NP-complete.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		7.38		%
+\item[7.38]Show that if P = NP, a polynomial time algorithm exists that produces a satisfying assignment when given a satisfiable Boolean formula. (Note: The algorithm you are asked to provide computes a function; but NP contains languages, not functions. The P = NP assumption implies that SAT is in P, so testing satisfiability is solvable in polynomial time. But the assumption doesn?t say how this test is done, and the test may not reveal satisfying assignments. You must show that you can find them anyway. Hint: Use the satisfiability tester repeatedly to find the assignment bit-by-bit.)
+\\
+\textbf{Solution:} The assumption of P = NP implies SAT $\in$ P with polynomial-time TM $M$. We will construct a polynomial-time TM $B$ that outputs, given $\phi$ an assignment if one exists:
+\\
+$B$ = ``On input boolean formula $\phi$ over variables $x_1, \cdots, x_k$:
+\begin{enumerate}
+\item Run $M$ on $\phi$. If $M$ rejects, \emph{reject} $\phi$. Otherwise, continue.
+\item For $1 \le i \le k$:
+\begin{enumerate}
+\item Let $\phi'$ be $\phi$ but with the variable $x_i$ hard-coded to 0. 
+\item Run $M$ on $\phi'$. If $M$ accepts, overwrite all instances of $x_i$ in $\phi$ to be 0; otherwise, overwrite all instances of $x_i$ in $\phi$ to be 1.
+\end{enumerate}
+\end{enumerate}
+$B$ runs in polynomial time because setting the $x_i$ takes $O(|\phi|)$ time for each $x_i$. Since there are $O(|\phi|)$ variables, and calling $M$ takes polynomial time by assumption, $B \in$ P. The logic is correct because the first step checks whether $\phi$ is satisfiable or not - when we use the for loop, we know that an assignment exists. If setting $x_i$ to be 0 makes $M$ reject $\phi$, then the setting of $x_i$ must be 1.
+
+%		7.40		%
+\item[7.40]Show that if P = NP, a polynomial time algorithm exists that takes an undirected graph as input and finds a largest clique contained in that graph. (See the note in Problem 7.38.)
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		7.49		%
+\item[7.49]Let $f: \mathcal{N} \rightarrow \mathcal{N}$ be any function where $f(n) = o(n \log n)$. Show that $TIME(f(n))$ contains only the regular languages.
+\\
+\textbf{Solution:} We define a \textbf{\emph{crossing sequence}} (abbreviated ``C.S.") for a TM $M$ as the sequence of states that $M$ enters at a given tape cell during computation on an input. We will prove two things, which is sufficient to prove that $TIME(f(n))$ contains only the regular languages:
+\begin{enumerate}
+\item[1.]A deterministic, single-tape TM with C.S.'s of bounded length decides a regular language.
+\item[2.]A deterministic, single-tape TM with C.S.'s of unbounded length cannot run in $o(n \log n)$ time. 
+\end{enumerate}
+
+\par For the first part, let $M$ be a deterministic, single-tape TM, and consider $M$ running on some input. If all of $M$'s C.S.'s on these inputs have length $\le k$, we can construct an NFA $N$ that simulates $M$, because $N$ only needs enough states to record the current C.S. plus a start state. $N$ then guesses the sequence of C.S.'s that would occur if $M$ processed the input string further, and also checks that adjacent C.S.'s are consistent (somewhat like a ``computation history"). Without loss of generality, assume that we modify $M$ so that it accepts at the right-most end of the input. Also, $N$'s accept states correspond to C.S.'s that contain $M$'s accept state and that match with $M$'s computation on the blank portion of the tape (initially) after the input string. Therefore, a deterministic, single-tape TM with C.S.'s of bounded length decides a regular language.
+
+\par For the second part, we will prove by contradiction. Suppose (to the contrary) that we have a deterministic, single-tape TM $M$ that runs in $o(n \log n)$ time and has C.S.'s of unbounded length. We can easily see that $M$ runs in time $bn\log(n)$, for all $n \ge n_0$ for some constant $n_0$ (also note that all inputs are of length $n$). We can also see that for all possible inputs, at least half of the C.S.'s must have length $\le 2b\log(n)$, as not to exceed M's running time. Define these C.S.'s as the \textbf{\emph{short crossing sequences}} (abbreviated ``S.C.S."). If $M$ has $|Q|$ states, the number of distinct C.S.'s of length $p$ is $|Q|^p$. If we choose $b$ to be small enough, it is possible to force repetition among the S.C.S.'s because $|Q|^{2b\log(n)}$ is much less than $\frac{n}{2}$. For $\forall k \in \mathbb{N}$, consider inputs that have a C.S. of length $\ge k$ and that are of length $n_0$ or more. Let $w$ be the shortest such string, and let $i$ be the position in $w$ such that the longest C.S. occurs. We can see that 3 positions $(p_1, p_2, p_3)$ must exist that have exactly the same C.S.'s. Remove either the substring $p_1$ through $p_2-1$ or $p_2$ through $p_3-1$ from $w$ such that position $i$ is not removed. We can also see that $M$ runs on the modified string exactly the same way as it originally did on $w$, but now except for the removed portion, because positions of $w$ with exactly the same C.S.'s were overlaid. Therefore, there exists a C.S. of length $\ge k$ in this modified input. However, we originally selected $w$ to be the shortest string which has a C.S. of length $\ge k$, a contradiction. Therefore, a deterministic, single-tape TM with C.S's of unbounded length cannot run in $o(n \log n)$ time.
+
+\par This is quite strange, as all regular languages are in $TIME(n)$, and there are not any in $TIME(f(n)) \cap \overline{TIME(n)}$ where $f(n) \in o(n \log n)$. However, according to (\texttt{http://arxiv.org/pdf/1307.3648.pdf}), any TM running in time $f(n) \in o(n \log n)$ actually runs in linear time.
+
+\end{enumerate}

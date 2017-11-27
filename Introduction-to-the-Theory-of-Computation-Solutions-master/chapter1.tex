@@ -1,0 +1,345 @@
+\section{Chapter 1}
+
+\begin{enumerate}
+
+%		1.1		%
+\item[1.1]The following are the state diagrams of two DFAs, $M_1$ and $M_2$. Answer the following questions about each of these machines.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		1.2		%
+\item[1.2]Give the formal description of the machines $M_1$ and $M_2$ pictured in Exercise 1.1.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		1.3		%
+\item[1.3]The formal description of a DFA $M$ is $(\{q_1, q_2, q_3, q_4, q_5\}, \{u, d\}, \delta, q_3, \{q_3\})$, where $\delta$ is given by the following table. Give the state diagram of this machine.
+\begin{table}[!htb]
+\centering
+\begin{tabular}{l|ll}
+      & $u$   & $d$   \\ \hline
+$q_1$ & $q_1$ & $q_2$ \\
+$q_2$ & $q_1$ & $q_3$ \\
+$q_3$ & $q_2$ & $q_4$ \\
+$q_4$ & $q_3$ & $q_5$ \\
+$q_5$ & $q_4$ & $q_5$
+\end{tabular}
+\end{table}
+
+\textbf{Solution:} 
+\begin{tikzpicture}[shorten >=1pt,node distance=2cm,initial text={},on grid,auto] 
+   \node[state] (q_1)   {$q_1$}; 
+   \node[state] (q_2) [right=of q_1] {$q_2$}; 
+   \node[state,initial above,accepting](q_3) [right=of q_2] {$q_3$};
+   \node[state] (q_4) [right=of q_3] {$q_4$};
+   \node[state] (q_5) [right=of q_4] {$q_5$};
+    \path[->] 
+    (q_1) edge [loop above] node {$u$} (q_1)
+          edge [bend left=20] node {$d$} (q_2)
+    (q_2) edge [bend left=20] node {$u$} (q_1)
+          edge [bend left=20] node {$d$} (q_3)
+    (q_3) edge [bend left=20] node {$u$} (q_2)
+          edge [bend left=20] node {$d$} (q_4)
+    (q_4) edge [bend left=20] node {$u$} (q_3)
+          edge [bend left=20] node {$d$} (q_5)
+    (q_5) edge [bend left=20] node {$u$} (q_4)
+          edge [loop above] node {$d$} (q_5);
+\end{tikzpicture}
+
+%		1.4		%
+\item[1.4]Each of the following languages is the intersection of two simpler languages. In each part, construct DFAs for the simpler languages, then combine them using the construction discussed in footnote 3 (page 46) to give the state diagram of a DFA for the language given. In all parts, $\Sigma = \{a, b\}$.
+
+\par \textbf{Note:} for simplicity, I omit the state diagrams. 
+\begin{enumerate}
+\item[a.]\textbf{Solution:} The state set is $Q = \{q_{i, j} \colon 0 \le i \le 3, 0 \le j \le 2\}$, with transition function:
+\begin{itemize}
+\item $\delta(q_{i, j}, a) = q_{i+1, j}$ for all $0 \le i \le 2, 0 \le j \le 2$,
+\item $\delta(q_{i, j}, b) = q_{i, j+1}$ for all $0 \le i \le 3, 0 \le j \le 1$.
+\end{itemize}
+The start state is $q_{0, 0}$, and the final state is $q_{3, 2}$. 
+\item[b.]\textbf{Solution:} \alreadyanswered
+\item[c.]\textbf{Solution:} the state set is $Q = \{q_{i, j} \colon i \in \{0, 1, 2, 3\}, j \in \{even, odd\}\}$, with transition function:
+\begin{itemize}
+\item $\delta(q_{i, even}, a) = q_{i, odd}$ for all $i$,
+\item $\delta(q_{i, odd}, a) = q_{i, even}$ for all $i$,
+\item $\delta(q_{i, j}, b) = q_{i+1, j}$ for $i \in \{0, 1, 2\}, j \in \{even, odd\}$,
+\item $\delta(q_{3, j}, b) = q_{3, j}$ for $j \in \{even, odd\}$.
+\end{itemize}
+
+\item[d.]\textbf{Solution:} \alreadyanswered
+
+\item[e.]\textbf{Solution:} the state set is $Q = \{ij \colon i,j \in \{0, 1, 2\}\}$, with transition function in \Cref{lbl:1.4e}.
+
+\item[f.]\textbf{Solution:} the state set is $Q = \{ij \colon i,j \in \{0, 1\}\}$, with transition function in \Cref{lbl:1.4f}.
+
+\item[g.]\textbf{Solution:} the state set is $Q = \{ij \colon i,j \in \{0, 1\}\}$, with transition function in \Cref{lbl:1.4g}.
+
+\begin{table}
+\parbox{.30\linewidth}{
+\centering
+\begin{tabular}{l|l|l}
+State $\downarrow$ Symbol $\rightarrow$   & $a$ & $b$ \\\hline
+00 (start) & 10 & 21\\
+01 & 11 & 22\\
+02 & 12 & 22\\
+10 (final) & 10 & 11\\
+11 (final) & 11 & 12\\
+12 & 12 & 12\\
+20 & 20 & 21\\
+21 & 21 & 22\\
+22 & 22 & 22
+\end{tabular}
+\caption{1.4e state table.}
+\label{lbl:1.4e}
+}
+\hfill
+\parbox{.30\linewidth}{
+\centering
+\begin{tabular}{l|l|l}
+State $\downarrow$ Symbol $\rightarrow$   & $a$ & $b$ \\\hline
+00 (start) & 01 & 10\\
+01 & 00 & 11\\
+10 & 01 & 00\\
+11 (final) & 00 & 01
+\end{tabular}
+\caption{1.4f state table.}
+\label{lbl:1.4f}
+}
+\hfill
+\parbox{.30\linewidth}{
+\centering
+\begin{tabular}{l|l|l}
+State $\downarrow$ Symbol $\rightarrow$   & $a$ & $b$ \\\hline
+00 (start) & 11 & 10\\
+01 (final) & 10 & 11\\
+10 & 01 & 00\\
+11 & 00 & 01
+\end{tabular}
+\caption{1.4g state table.}
+\label{lbl:1.4g}
+}
+\end{table}
+
+
+\end{enumerate}
+
+%		1.5		%
+\item[1.5]Each of the following languages is the complement of a simpler languages. In each part, construct DFAs for the simpler language, then use it to give the state diagram of a DFA for the language given. In all parts, $\Sigma = \{a, b\}$.
+
+\par \textbf{Note:} for simplicity, I omit the state diagrams. 
+\begin{enumerate}
+\item[a.]\textbf{Solution:} \alreadyanswered
+\item[b.]\textbf{Solution:} \alreadyanswered
+\end{enumerate}
+
+%		1.6		%
+\item[1.6]Give state diagrams of NFAs with the specified number of states recognizing each of the following languages. In all parts, the alphabet is \{0, 1\}.
+\begin{enumerate}
+\item[a.]\textbf{Solution:} \alreadyanswered
+\item[f.]\textbf{Solution:} \alreadyanswered
+\end{enumerate}
+
+%		1.7		%
+\item[1.7]Each of the following languages is the complement of a simpler language. In each part, construct a DFA for the simpler language, then use it to give the state diagram of a DFA for the language given. In all parts, $\Sigma = \{a, b\}$.
+\begin{enumerate}
+\item[a.]\textbf{Solution:} \alreadyanswered
+\item[b.]\textbf{Solution:} \alreadyanswered
+\end{enumerate}
+
+%		1.11		%
+\item[1.11]Prove that every NFA can be converted to an equivalent one that has a single accept state.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		1.20		%
+\item[1.20]For each of the following languages, give two strings that are members and two strings that are not members--a total of four strings for each part. Assume the alphabet $\Sigma = \{a,b\}$ in all parts.
+\begin{enumerate}
+\item[a.]\textbf{Solution:} 2 members: $ab, aa$; 2 not members: $ba, bab$.
+\item[b.]\textbf{Solution:} 2 members: $ab, abab$; 2 not members: $b, ba$.
+\item[c.]\textbf{Solution:} 2 members: $aa, bb$; 2 not members: $ba, ab$.
+\item[d.]\textbf{Solution:} 2 members: $\epsilon, aaa$; 2 not members: $b, bb$.
+\item[e.]\textbf{Solution:} 2 members: $aba, aaba$; 2 not members: $b, bb$.
+\item[f.]\textbf{Solution:} 2 members: $aba, bab$; 2 not members: $a, b$.
+\item[g.]\textbf{Solution:} 2 members: $b, ab$; 2 not members: $ba, bb$.
+\item[h.]\textbf{Solution:} 2 members: $a, ba$; 2 not members: $ab, b$.
+\end{enumerate}
+
+%		1.23		%
+\item[1.23]Let $B$ be any language over the alphabet $\Sigma$. Prove that $B = B^+$ iff $BB \subseteq B$.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		1.29		%
+\item[1.29]Use the pumping lemma to show that the following languages are not regular.
+\begin{enumerate}
+\item[a.]\textbf{Solution:} \alreadyanswered
+\item[b.]\textbf{Solution:} $A_2$ = \{$www$ $|$ $w \in \{a, b\}^*$\}. Suppose that $A_2$ were regular, and let $p$ be the constant for $A_2$ as given by the pumping lemma. Then, let $s = a^{p}ba^{p}ba^{p}b \in A_2$. Therefore, we can decompose $s$ as $xyz$, where $|xy| \le p, |y| > 0$, and $xy^iz \in A_2$ for $\forall i \in \mathbb{N}$. Since $|xy| \le p$, $x, y$ consist entirely of $a$'s; therefore, we can write $x = a^c$, $y = a^d$, and $z = a^{p-c-d}ba^{p}ba^{p}b$, where $c \ge 0, d > 0, p-c-d \ge 0$. For the third condition, choose $i = 2$: $w = xy^{2}z = a^{c}a^{2d}a^{p-c-d}ba^{p}ba^{p}b = a^{p+d}ba^{p}ba^{p}b$. Since $d > 0$, $w \notin A_2$: therefore, we have a contradiction, and $A_2$ is not regular.
+\item[c.]\textbf{Solution:} \alreadyanswered
+\end{enumerate}
+
+%		1.31		%
+\item[1.31]For any string $w = w_{1}w_{2}\cdots w_{n}$, the \textbf{\emph{reverse}} of $w$, written $w^{\mathcal{R}}$, is the string $w$ in reverse order, $w_n\cdots w_{2}w_{1}$. For any language $A$, let $A^{\mathcal{R}} = \{w^{\mathcal{R}} | w \in A\}$. Show that if $A$ is regular, so is $A^{\mathcal{R}}$. 
+\\
+\textbf{Solution:} For any regular language $A$, let $M = (Q, \Sigma, \delta, q_0, F)$ be the DFA recognizing $A$. We need to construct an NFA/DFA $N$ such that $L(N) = A^{\mathcal{R}}$. Let $N = (Q', \Sigma, \delta', q_0', \{q_0\})$, where $q_0' \notin Q$ and $Q' = Q \cup \{q_0'\}$. Define $\delta'$ as: $\delta'(q_0', \epsilon) = F$, and $\delta'(q_0', a) = \emptyset, \forall a \in \Sigma$. Also, $\forall (q, a) \in Q \times \Sigma, \delta'(q, a) = \{q' | \delta(q', a) = q\}$. 
+
+\par Another way to approach this problem is an informal explanation: we reverse all of the transitions of $M$, and set the accept state of $N$ to be $M$'s start state. Also, introduce a new state $q_0'$ as $N$'s start state, which goes to every accept state in $M$ by an $\epsilon$-transition.
+
+%		1.39		%
+\item[1.39]The construction in Theorem 1.54 shows that every GNFA is equivalent to a GNFA with only two states. We can show that an opposite phenomenon occurs for DFAs. Prove that for every $k > 1$, a language $A_k \subseteq \{0,1\}^*$ exists that is recognized by a DFA with $k$ states but not by one with only $k-1$ states.
+\\
+\textbf{Solution:} let $L_k = \{0^i\;\vert\;i \ge k-1\}$. This language consists of strings of length $\ge k-1$. Therefore, no DFA of $k-1$ states can recognize this language, but certainly one of $k$ states can.
+
+%		1.40		%
+\item[1.40]Recall that string $x$ is a \textbf{prefix} of string $y$ if a string $z$ exists where $xz = y$, and that $x$ is a \textbf{proper prefix} of $y$ if in addition $x \ne y$. In each of the following parts, we define an operation on a language $A$. Show that the class of regular languages is closed under that operation.
+\begin{enumerate}
+\item[a.]\textbf{Solution:} \alreadyanswered
+\end{enumerate}
+
+%		1.42		%
+\item[1.42]For languages $A$ and $B$, let the \emph{\textbf{shuffle}} of $A$ and $B$ be the language \{$w$ $|$ $w=a_1b_1...a_kb_k$, where $a_1...a_k \in A$ and $b_1...b_k \in B$, each $a_i,b_i \in \Sigma^*$\}. Show that the class of regular languages is closed under shuffle.
+\\
+\textbf{Solution:} Let $D_A = (Q_A, \Sigma, \delta_A, q_A, F_A$ and $D_B = (Q_B, \Sigma, \delta_B, q_B, F_B$ be the DFAs recognize $A$ and $B$, respectively. We will design a DFA $D = (Q, \Sigma, \delta, q_0, F)$ such that it recognizes the shuffle of $A$ and $B$ as follows:
+\begin{itemize}
+\item $Q = Q_A \times Q_B \times \{A, B\}$.
+\item $q_0 = (q_A, q_B, A)$.
+\item $F = F_A \times F_B \times \{A\}$.
+\item For $\delta$:
+\begin{itemize}
+\item $\delta((x, y, A), a) = (\delta_A(x, a), y, B)$.
+\item $\delta((x, y, B), b) = (x, \delta_B(y, b), A)$.
+\end{itemize}
+\end{itemize}
+
+%		1.44		%
+\item[1.44]Let $B$ and $C$ be languages over $\Sigma = \{0, 1\}$. Define
+\begin{center}
+$B \xleftarrow{1} C$ = \{$w \in B |$ for some $y \in C$, strings $w$ and $y$ contain equal numbers of 1s\}. 
+\end{center}
+Show that the class of regular languages is closed under the $\xleftarrow{1}$ operation.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		1.45		%
+\item[1.45]Let $A/B = \{w | wx \in A$ for some $x \in B$\}. Show that if $A$ is regular and $B$ is any language, then $A/B$ is regular.
+\\
+\textbf{Solution:} Let $M = (Q, \Sigma, \delta, q_0, F)$ be a DFA such that $L(M) = A$, and $\Sigma$ is the union of the alphabets of $A$ and $B$. Let $F_{r} = \{q \in Q | \exists x \in B$ such that $M$ can reach a final state when having read $x$, starting at $q$\}. Therefore, $L(M) = A/B$. 
+
+%		1.48		%
+\item[1.48]Let $\Sigma = \{0, 1\}$ and let
+\begin{center}
+$D = \{w | w$ contains an equal number of occurrences of the substrings 01 and 10\}.
+\end{center}
+Thus 101 $\in D$ because 101 contains a single 01 and a single 10, but 1010 $\notin D$ because 1010 contains two 10s and one 01. Show that $D$ is a regular language. 
+\\
+\textbf{Solution:} $D$ is just precisely described by the regular expression $(1^+0^*1^+)^* \cup (0^+1^*0^+)^*$
+
+%		1.50		%
+\item[1.50]Read the informal definition of the finite state transducer given in Exercise 1.24. Prove that no FST can output $w^R$ for every input $w$ if the input and output alphabets are \{0, 1\}.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		1.52		%
+\item[1.52]\textbf{Myhill-Nerode theorem}. Refer to Problem 1.51. Let $L$ be a language and let $X$ be a set of strings. Say that $X$ is \textbf{\emph{pairwise distinguishable by L}} if every two distinct strings in $X$ are distinguishable by $L$. Define the \textbf{\emph{index of L}} to be the maximum number of elements in any set that is pairwise distinguishable by $L$. The index of $L$ may be finite or infinite.
+\\
+\textbf{Solution:} \alreadyanswered
+
+%		1.53		%
+\item[1.53]Let $\Sigma$ = \{0, 1, +, =\} and $ADD$ = \{ $x = y + z$ $|$ $x, y, z$ are binary integers, and $x$ is the sum of $y$ and $z$\}. Show that $ADD$ is not regular.
+\\
+\textbf{Solution:} Assume that $ADD$ is regular. Therefore, there exists a pumping length $p \in \mathbb{Z}$ such that the three conditions of the Pumping Lemma are satisfied. Choose $w$ as $1^p=0^p+1^p$. Clearly, $w \in ADD$. By the conditions of the Pumping Lemma, we can partition $w = xyz$ such that $|xy| \le p, |y| > 0$, and $xy^iz \in ADD$ for $\forall i \in \mathbb{N}$. By the first and second conditions of the Pumping Lemma, $x$ and $y$ consist entirely of 1s, i.e. $x = 1^a, y = 1^b, z = 1^{p-a-b}=0^p+1^p$ for $a \ge 0, b > 0$. By the third condition, $xy^iz \in ADD$ for $\forall i \in \mathbb{N}$. Choose $i=2$: $xy^2z = 1^a1^{2b}1^{p-a-b}=0^p+1^p$ = $1^{p+b}=0^p+1^p$. However, this string is not in $ADD$, because this implies $p+b = p$, but $b > 0$, a contradiction. Therefore, $ADD$ is not regular.
+
+%		1.55		%
+\item[1.55]The pumping lemma says that every regular language has a pumping length $p$, such that every string in the language can be pumped if it has length $p$ or more. If $p$ is a pumping length for language $A$, so is any length $p' \ge p$. The minimum pumping length for $A$ is the smallest $p$ that is a pumping length for $A$. For example, if $A = 01^*$, the minimum pumping length is 2. The reason is that the string $s = 0$ is in $A$ and has length 1 yet $s$ cannot be pumped; but any string in $A$ of length 2 or more contains a 1 and hence can be pumped by dividing it so that $x = 0, y = 1$, and $z$ is the rest. For each of the following languages, give the minimum pumping length and justify your answer.
+\begin{enumerate}
+\item[a.]$0001^*$
+\\ 
+\textbf{Solution:} \alreadyanswered
+\item[b.]$0^*1^*$
+\\
+\textbf{Solution:} \alreadyanswered
+\item[c.]$001 \cup 0^*1^*$
+\\
+\textbf{Solution:} We cannot pump $001$, so the minimum pumping length is 4. 
+\item[d.]$0^*1^+0^+1^* \cup 10^*1$
+\\
+\textbf{Solution:} \alreadyanswered
+\item[e.]$(01)^*$
+\\
+\textbf{Solution:} We cannot pump $\epsilon$, so the minimum pumping length is 1 (if we wanted to be constructive, the answer would be 2, since there is no string of length 1 here). 
+\item[g.]$1^*01^*01^*$
+\\
+\textbf{Solution:} We cannot pump $00$, but we can for $100$, so the minimum pumping length is 3. 
+\end{enumerate}
+
+%		1.58		%
+\item[1.58]If $A$ is any language, let $A_{\frac{1}{3} - \frac{1}{3}}$ be the set of all strings in $A$ with their middle thirds removed so that
+\begin{center}
+$A_{\frac{1}{3} - \frac{1}{3}} = \{xz\;\vert\;\text{for some $y$, $|x| = |y| = |z|$ and $xyz \in A$}\}$.
+\end{center}
+Show that if $A$ is regular, then $A_{\frac{1}{3} - \frac{1}{3}}$ is not necessarily regular.
+\\
+\textbf{Solution:} Let $A = \{0^*\#1^*\}$, which is regular. Therefore, $A_{\frac{1}{3} - \frac{1}{3}} \cap \{0^*1^*\} = \{0^n1^n\;|\;n \ge 0\}$ is also regular since regular languages are closed under intersection, and $\{0^*1^*\}$ is a regular language. However, the resulting language is not regular, so therefore $A_{\frac{1}{3} - \frac{1}{3}}$ is not necessarily regular when $A$ is.
+
+%		1.63		%
+\item[1.63]
+\begin{enumerate}
+\item Let $A$ be an infinite regular language. Prove that $A$ can be split into two infinite disjoint regular subsets.
+\\
+\textbf{Solution:} since $A$ is infinite and regular, then the conditions of the Pumping Lemma for Regular Languages hold, i.e., that there is a $p \ge 0$ such that for all $w \in A$, we can partition $w$ into $w = xyz$ that satisfy those 3 conditions. Consider $A' = \{xy^{2i}z\;\vert\;i \ge 0\}$, and $A'' = L \cap \overline{A'}$. These are the desired languages because they partition $A$ and are infinite. 
+
+\item Let $B$ and $D$ be two languages. Write $B \Subset D$ if $B \subseteq D$ and $D$ contains infinitely many strings that are not in $B$. Show that if $B$ and $D$ are two regular languages where $B \Subset D$, then we can find a regular language $C$ where $B \Subset C \Subset D$.
+\\
+\textbf{Solution:} Let $L = D \cap \overline{B}$; $L$ is regular by the closure operations, and is infinite. By the Pumping Lemma for Regular Languages, there is a $w \in L$ such that $w = xyz$ such that $|y| > 0$, and for all $i \ge 0$, $xy^i z \in L$. Let $C = B \cup \{xy^i z \in L\;\vert\;i\;\text{is even}\}$. Call the second language $L'$. We can see that $C$ is regular. Since $L' \cap \overline{B}$ is infinite, we have $B \Subset C$. By a similar analysis, we have $C \Subset D$.
+\end{enumerate}
+
+%		1.70		%
+\item[1.70]We define the \textbf{\emph{avoids}} operation for languages $A$ and $B$ to be
+\begin{center}
+$A$ \emph{avoids} $B$ = \{$w$ $|$ $w \in A$ and $w$ doesn't contain any string in $B$ as a substring\}.
+\end{center}
+Prove that the class of regular languages is closed under the \emph{avoids} operation.
+\\
+\textbf{Solution:} The idea is to find a regular language that has strings in $B$ as a substring, and remove from $A$ this language. Therefore, define $L_{substr} = \Sigma^*B\Sigma^*$. Clearly, $L_{substr}$ is regular because it is the concatenation of 2 regular languages. Since regular languages are closed under complement and intersection, then $A \setminus L_{substr} = A \cap \overline{L_{substr}}$ is also regular. But these are precisely the strings that are in $A$ that are not in $L_{substr}$, which is what we want.
+
+%		1.72		%
+\item[1.72]Let $M_1$ and $M_2$ be DFAs that has $k_1$ and $k_2$ states, respectively, and then let $U = L(M_1) \cup L(M_2)$. 
+\begin{enumerate}
+\item[a.]Show that if $U \ne \emptyset$, then $U$ contains some string $s$, where $|s| < \max(k_1, k_2)$.
+\\
+\textbf{Solution:} Consider a DFA $D = (Q, \Sigma, \delta, q_0, F)$ such that $L(D) \ne \emptyset$. Therefore, if the final state is reachable, transitioning from $D$'s start state to a final state requires at most $|Q| - |F|$ transitions. Since $U \ne \emptyset$, then either $L(M_1) \ne \emptyset$ or $L(M_2) \ne \emptyset$ (or both). We have the following cases:
+\begin{enumerate}
+\item[1.] $L(M_1) = \emptyset, L(M_2) \ne \emptyset$. This implies that $M_1$ has no reachable accept states, and $M_2$ has at least one reachable accept state. Also, $U = L(M_2)$. From our observation above, if $M_2$ accepts a string $s$, then $|s| \le k_2 - |F_2| < k_2 \le \max(k_1, k_2)$ where $F_2$ is the set of accept states of $M_2$. Therefore, $s \in L(M_2) = U$.
+
+\item[2.] $L(M_1) \ne \emptyset, L(M_2) = \emptyset$. This is equivalent to Case 1.
+
+\item[3.] $L(M_1), L(M_2) \ne \emptyset$. Therefore, $M_1$ and $M_2$ have at least one reachable accept state. Let $s_1$ be the string of minimal length accepted by $M_1$, and $s_2$ for $M_2$. Let $s \in U$ be such that $|s| = \min(|s_1|, |s_2|)$. We have the following 2 cases:
+\begin{enumerate}
+\item[3.1.] $|s_1| \ne |s_2|$. This implies $|s| = \min(|s_1|, |s_2|) < \max(|s_1|, |s_2|)$. There are two possibilities. If $\max(|s_1|, |s_2|) = |s_1|$, then $|s| = |s_2| < |s_1| < k_1 \le \max(k_1, k_2)$. Therefore, we are done. The same conclusion is reached if we consider when $\max(|s_1|, |s_2|) = |s_2|$. 
+
+\item[3.2.] $|s_1| = |s_2$. This implies $|s| = \min(|s_1|, |s_2|) = \max(|s_1|, |s_2|)$. From our observation above, we have that $|s| = \min(|s_1|, |s_2|) = \max(|s_1|, |s_2|) = |s_1| < k_1 \le \max(k_1, k_2)$. Therefore, we are done.
+\end{enumerate}
+\end{enumerate}
+
+\item[b.]Show that if $U \ne \Sigma^*$, then $U$ excludes some string $s$, where $|S| < k_1k_2$.
+
+\textbf{Solution:} Let $D = (Q, \Sigma, \delta, q_0, F)$ be a DFA such that $L(D) = U = L(M_1) \cup L(M_2)$. Suppose (to the contrary) that all strings $s \in U$ are such that $|s| < k_1k_2$. Also, suppose there exists a non-accepting state $q \in Q$. Therefore, there cannot exist a sequence of states $q_1, \cdots, q_{k_1k_2}$ in $D$ such that running $D$ on $s$ would have $q$ in this sequence:
+\begin{enumerate}
+\item[1.]$q_1 = q_0$.
+\item[2.]$\delta(q_i, x) = q_{i+1}$ for $1 \le i \le k_1k_2-1$ and for all $x \in \Sigma$.
+\item[3.]$q_j \ne q_k$ for $j \ne k$.
+\end{enumerate}
+If $q$ were in this sequence, then $q$ would be an accepting state. However, this implies that $D$ has $k_1k_2+1$ distinct states, and $D$ has only $k_1k_2$ states, a contradiction. Therefore, either $q$ is not reachable from $q_0$, or $q$ does not exist. 
+\\ \\
+Since $q$ is an arbitrary non-accepting state of $D$, the only states reachable from $q_0$ are accepting states. Now, we prove by induction that all strings of length $\ge k_1k_2$ are accepted by $D$.
+\\ \\
+Basis step: from above, $D$ accepts any string of length $k_1k_2 - 1 < k_1k_2$. Let $s \in \Sigma^*$ such that $|s| = k_1k_2 - 1$. Therefore, $\delta^*(q_0, s)$ must result in an accepting state. Let $r$ be this state. Therefore, $\delta(q, w)$ for all $w \in \Sigma$ must result in an accepting state, since all reachable states from $q_0$ are accepting states. Therefore, $D$ must accept any string $s \in \Sigma^*$ such that $|s| = k_1k_2$. 
+\\ \\
+Inductive Hypothesis: assume that $D$ accepts any string $s \in \Sigma^*$ such that $|s| = k_1k_2 + n$ for some $n \in \mathbb{N}$. 
+\\ \\
+Inductive Step: By the IH, $\delta^*(q_0, s)$ must result in an accepting state for all $s \in \Sigma^*$ such that $|s| = k_1k_2 + n$ for some $n \in \mathbb{N}$. Let the accept state be $r$. For all $w \in \Sigma, \delta(q, w)$ results in an accepting state. It follows that $D$ accepts all $s \in \Sigma^*$ such that $|s| = k_1k_2+n+1$. Now, we showed that $D$ accepts all $s \in \Sigma^*$ such that $|s| \ge k_1k_2$. From earlier, we showed that $D$ accepts all $t \in \Sigma^*$ such that $|t| < k_1k_2$. 
+\\ \\
+Therefore, $L(D) = U = \Sigma^*$. However, this is a contradiction to our assumption. Therefore, $U$ excludes some string $s$ where $|s| < k_1k_2$. 
+
+\end{enumerate}
+
+\end{enumerate}
